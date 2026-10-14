@@ -1,0 +1,149 @@
+/* Scene a scorrimento (stile "keynote"): zoom e transizioni guidati da --p (0→1) impostato da scenes.js.
+   Senza JavaScript o con "riduci animazioni" le scene diventano normali sezioni, con tutto il testo visibile. */
+
+.nav-pill{background:var(--amber);color:var(--bottle);border-radius:999px;padding:6px 14px!important;border-bottom:0!important}
+.nav-pill:hover{background:#f2bb55}
+
+.scene{position:relative;--p:0}
+.stage{position:relative;display:grid;place-items:center;text-align:center;padding:clamp(72px,12vw,120px) var(--gutter);overflow:hidden;min-height:80svh}
+.stage h2{margin-inline:auto;max-width:14ch}
+.stage p{margin-inline:auto}
+
+/* ---------- modalità animata ---------- */
+.fx .scene{height:var(--h,300svh)}
+.fx .stage{position:sticky;top:0;height:100svh;min-height:0;padding-block:64px 12px}
+
+/* ---------- scena 1: bicchiere ---------- */
+.scene--hero .stage{background:radial-gradient(900px 600px at 50% 70%,rgba(232,169,58,.16),transparent 70%),var(--bottle)}
+.hero-copy{position:relative;z-index:2;max-width:980px}
+.hero-copy h1{font-size:clamp(2.8rem,10.5vw,8.4rem);max-width:none;margin-bottom:.35em;line-height:.95;letter-spacing:-.04em}
+.hero-copy .lead{max-width:34ch;font-size:clamp(1.1rem,2.6vw,1.5rem)}
+.hero-copy .btn-row{justify-content:center}
+.glass{width:min(46vmin,360px);margin:36px auto 0}
+.glass svg{display:block;width:100%;height:auto}
+.flood{display:none}
+.fx .glass{position:absolute;left:0;top:0;margin:0;width:200px;transform-origin:50% 62%;pointer-events:none}
+.fx .hero-copy{position:absolute;top:clamp(76px,12svh,120px);left:50%;transform:translate(-50%,calc(var(--p) * -50px));width:calc(100% - 2*var(--gutter));opacity:clamp(0,calc(1.2 - var(--p) * 7),1)}
+.hero-copy.is-gone{visibility:hidden;pointer-events:none}
+.fx .scene--hero .stage{background:color-mix(in oklab,var(--bottle),var(--amber) calc(var(--bg,0) * 100%))}
+.fx .flood{display:none}
+.scroll-hint{display:none}
+.fx .scroll-hint{pointer-events:none;display:block;position:absolute;z-index:4;bottom:18px;left:0;right:0;margin:0;font-family:var(--f-ui);font-size:.85rem;color:var(--chalk-dim);
+  opacity:clamp(0,calc(1 - var(--p) * 8),1)}
+
+/* ---------- scena 2: sei vie ---------- */
+.scene--taps .stage{background:var(--bottle);gap:0;align-content:center}
+.fade-in{display:none}
+.fx .fade-in{display:block;position:absolute;inset:0;z-index:5;background:var(--amber);pointer-events:none;opacity:clamp(0,calc(1 - var(--p) * 10),1)}
+.big-num{font-family:var(--f-display);font-weight:900;line-height:.85;letter-spacing:-.06em;font-size:clamp(5rem,19vmin,14rem);
+  background:linear-gradient(180deg,var(--amber) 15%,#b4691b 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+.scene--taps h2{font-size:clamp(1.6rem,4.6vw,3.2rem);margin-top:.15em;max-width:20ch}
+.tapsvg{width:min(900px,100%);max-height:34svh;margin:clamp(6px,2vh,20px) auto 0}
+.fx .tapsvg{transform:scale(calc(1 + var(--p) * .12))}
+.tapsvg .tap{transition:opacity .35s,transform .35s}
+.fx .tapsvg .tap{opacity:.28}
+.fx .tapsvg .tap.seen{opacity:.9}
+.fx .tapsvg .tap.on{opacity:1;transform:translateY(-8px)}
+.tapsvg .stream{opacity:0;transition:opacity .3s}
+.tapsvg .liq{transform:translateY(calc((1 - var(--f,1)) * 132px))}
+.tapsvg .tap{--f:1}
+.fx .tapsvg .tap{--f:0}
+.tapsvg .tap.on .stream{opacity:1}
+.step-label{font-family:var(--f-ui);font-weight:600;color:var(--amber);margin:12px 0 0;min-height:1.6em}
+.chips{list-style:none;display:flex;gap:10px 14px;flex-wrap:wrap;justify-content:center;margin:14px 0 0;padding:0;font-family:var(--f-ui);font-size:.98rem}
+.chips li{border:1.5px solid var(--line);border-radius:999px;padding:7px 16px}
+.chips strong{color:var(--amber)}
+
+/* ---------- scena 3: due frigo ---------- */
+.scene--fridges .stage{background:linear-gradient(180deg,var(--bottle),#0b1913)}
+.scene--fridges h2{font-size:clamp(1.7rem,5vw,3.6rem);max-width:20ch}
+.scene--fridges .stage p{max-width:34ch}
+.fridges{height:min(44svh,420px);width:auto;max-width:94%;margin:clamp(10px,2.5vh,26px) auto 0}
+.fx .fridges{transform:scale(calc(1 + var(--p) * .12))}
+.fridges .row{transition:opacity .4s}
+.fx .fridges .row{opacity:.18}
+.fx .fridges .row.on{opacity:1}
+
+/* ---------- scena 4: vino ---------- */
+.scene--wine .stage{background:color-mix(in oklab,var(--bottle),#3b0f20 calc(var(--p) * 100%))}
+.wine-grid{display:grid;gap:clamp(20px,5vw,72px);grid-template-columns:1fr;align-items:center;justify-items:center;width:min(1000px,100%)}
+@media(min-width:820px){.wine-grid{grid-template-columns:.8fr 1.2fr;text-align:left}}
+.scene--wine h2{font-size:clamp(2.2rem,7vw,5.4rem);max-width:10ch;margin-inline:0}
+.wine-bottle svg{display:block;height:min(62svh,500px);width:auto;max-width:100%}
+.wine-fill{transform:translateY(0)}
+.fx .wine-fill{transform:translateY(calc((1 - var(--p)) * 360px))}
+.wine-lines{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px;font-family:var(--f-display);font-weight:800;font-size:clamp(1.25rem,3.2vw,2rem);letter-spacing:-.02em;line-height:1.15;text-align:left}
+.wine-lines span{display:block;font-family:var(--f-ui);font-weight:400;font-size:.95rem;letter-spacing:0;color:var(--chalk-dim);margin-top:2px}
+.wine-lines li{transition:opacity .4s,transform .4s}
+.fx .wine-lines li{opacity:.2;transform:translateX(-12px)}
+.fx .wine-lines li.on{opacity:1;transform:none}
+.wine-lines em{font-style:normal;color:var(--rose)}
+
+/* ---------- scena 5: testo che si accende ---------- */
+.scene--words .stage{background:var(--bottle)}
+.words{font-family:var(--f-display);font-weight:900;letter-spacing:-.03em;line-height:1.08;font-size:clamp(1.7rem,5.4vw,3.8rem);max-width:22ch;margin:0 auto;text-align:left;text-wrap:balance}
+.words .w{transition:color .25s}
+.fx .words .w{color:rgba(236,232,216,.18)}
+.fx .words .w.on{color:var(--chalk)}
+.words-note{margin-top:28px!important;font-size:1.05rem;color:var(--chalk-dim)}
+.scene--words h2{font-family:var(--f-ui);font-weight:600;font-size:1rem;letter-spacing:0;color:var(--amber);max-width:none;margin:0 auto 22px;text-align:left;width:min(22ch,100%)}
+.photo-wrap{margin-top:clamp(24px,5vw,48px)}
+
+/* ---------- aperitivo: prezzi grandi ---------- */
+.price-grid{display:grid;gap:clamp(12px,2vw,20px);grid-template-columns:1fr}
+@media(min-width:760px){.price-grid{grid-template-columns:repeat(3,1fr)}}
+.price-card{border-top:6px solid var(--hop);padding-top:16px}
+.price-card:nth-child(2){border-top-color:var(--amber)}
+.price-card:nth-child(3){border-top-color:var(--chalk)}
+.price-card b{display:block;font-family:var(--f-display);font-weight:900;font-size:clamp(3rem,8vw,5.2rem);letter-spacing:-.05em;line-height:.95}
+.price-card span{display:block;font-family:var(--f-ui);font-size:1rem;margin-top:6px}
+
+@media (prefers-reduced-motion:reduce){
+  .tapsvg .tap,.fridges .row,.wine-lines li,.words .w{transition:none}
+}
+
+/* ---------- telefono ---------- */
+@media (max-width:600px){
+  .nav a:nth-child(-n+2){display:none}
+  .nav{margin-left:auto;gap:4px 14px}
+  .fx .hero-copy{top:clamp(80px,14svh,120px)}
+  .scene--fridges .stage .lead{font-size:1rem;line-height:1.5}
+  .fridges{height:min(34svh,300px)}
+  .wine-bottle svg{height:min(36svh,320px)}
+  .wine-grid{gap:14px}
+  .wine-lines{gap:8px;font-size:1.15rem;margin-top:12px}
+  .scene--wine h2{font-size:clamp(2rem,9vw,3rem);max-width:none;text-align:center}
+  .wine-grid > div:last-child{text-align:center}
+  .wine-lines{text-align:center}
+}
+
+/* ---------- barra azioni su telefono ---------- */
+.action-bar{display:none}
+@media (max-width:700px){
+  .action-bar{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;
+    padding:10px var(--gutter) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(15,31,24,.95);
+    backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  .fx .action-bar{transform:translateY(115%);transition:transform .3s ease;visibility:hidden}
+  .fx.past-hero .action-bar{transform:none;visibility:visible}
+  .action-bar .btn{padding:10px 6px;min-height:46px;font-size:.95rem}
+  .site-foot{padding-bottom:104px}
+}
+
+/* ---------- foto del locale nella scena dei frigo ---------- */
+.fridge-photo{margin:clamp(10px,2.5vh,26px) auto 0;height:min(44svh,500px);aspect-ratio:1/1;max-width:94%;overflow:hidden;border-radius:10px;border:1px solid var(--line);background:var(--slate-2)}
+.fridge-photo img{display:block;width:100%;height:100%;object-fit:cover;transform-origin:28% 58%}
+.fx .fridge-photo img{transform:scale(calc(1.02 + var(--p) * .5))}
+@media (max-width:600px){.fridge-photo{height:min(36svh,330px)}}
+
+.scene--fridges .stage{align-content:center}
+@media (max-width:700px){
+  .fx .scene--fridges .stage,.fx .scene--taps .stage,.fx .scene--wine .stage,.fx .scene--words .stage{padding-bottom:84px}
+}
+/* telefono in orizzontale: testo a sinistra, foto a destra */
+@media (max-height:520px) and (orientation:landscape){
+  .scene--fridges .stage{grid-template-columns:1fr 1fr;grid-template-areas:"h f" "p f";column-gap:28px;text-align:left;align-content:center}
+  .scene--fridges h2{grid-area:h;margin:0 0 8px;align-self:end;max-width:none}
+  .scene--fridges .stage p{grid-area:p;margin:0;align-self:start}
+  .fridges{grid-area:f;height:min(72svh,320px);margin:0 auto}
+  .fridge-photo{grid-area:f;height:min(72svh,320px);margin:0 auto}
+}

@@ -1,0 +1,11 @@
+{
+  "valutazione": "",
+  "numero": "",
+  "link": "",
+  "aggiornato": "14/10/2026",
+  "recensioni": [
+    { "autore": "Gabriele Z.", "stelle": 5, "data": "17 settimane fa", "testo": "Locale raccolto e familiare ma al contempo cool e curatissimo. Oltre alle birre ora l'aggiunta della bottiglieria lo completa." },
+    { "autore": "Zino C.", "stelle": 5, "data": "6 settimane fa", "testo": "Che dire. Provare per credere. Ottimissimo." },
+    { "autore": "Aron", "stelle": 4, "data": "28 settimane fa", "testo": "Finalmente posso bere il vino al posto di una birra in un pub, cosa non scontata. Ambiente informale e atmosfera piacevole." }
+  ]
+}
