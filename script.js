@@ -175,7 +175,7 @@
     setInterval(paint, 60000);
   })();
 
-  // Foto del locale: la sezione compare solo se images/locale.jpg esiste davvero (niente spazio vuoto, niente salti di pagina)
+  // Foto del locale: la sezione compare solo se locale.jpg esiste davvero (niente spazio vuoto, niente salti di pagina)
   var fotoSez = document.getElementById("foto-sezione");
   if (fotoSez) {
     var fotoImg = fotoSez.querySelector("img");
